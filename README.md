@@ -5,4 +5,4 @@ Web personal bilingüe (ES/EN). Se publica sola con GitHub Pages cada vez que ca
 - `index.html` · toda la web. Textos en español en el HTML y su versión inglesa en `data-en="…"`.
   Trayectoria, logros, formación, metodología, documentos y charlas están en listas al final del archivo.
 - `img/` · fotos. Para cambiar una, sube otra con el mismo nombre.
-- Color principal: línea `--acc:#1fcf8c` al principio de `index.html`.
+- Color principal: línea `--acc:#4da3ff` al principio de `index.html`.
