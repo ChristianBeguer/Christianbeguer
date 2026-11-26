@@ -82,8 +82,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hint{color:var(--mut);font-size:14px;margin:0}
 .tl{position:relative;display:grid;grid-template-columns:repeat(var(--n),minmax(110px,1fr));gap:8px;overflow-x:auto;padding:4px 2px 18px;scroll-snap-type:x mandatory}
 .tl::before{content:"";position:absolute;left:60px;right:60px;top:52px;height:1px;background:var(--line)}
-.stg{position:relative;background:none;border:0;color:var(--mut);font:inherit;text-align:center;cursor:pointer;padding:4px 4px 10px;scroll-snap-align:start}
+.stg{align-self:start;position:relative;background:none;border:0;color:var(--mut);font:inherit;text-align:center;cursor:pointer;padding:4px 4px 10px;scroll-snap-align:start}
 .crest{width:96px;height:96px;margin:0 auto 14px;border-radius:50%;background:var(--card2);border:2px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:22px;color:var(--mut);transition:.25s}
+.crest.has{background:#fff;border-color:var(--line)}
+.crest img{width:70%;height:70%;object-fit:contain;filter:grayscale(1);opacity:.6;transition:.25s}
+.stg:hover .crest img,.stg[aria-selected=true] .crest img{filter:none;opacity:1}
+.stg[aria-selected=true] .crest.has{background:#fff}
+.dcrest{width:64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center;margin-bottom:16px}
+.dcrest img{width:72%;height:72%;object-fit:contain}
 .stg b{display:block;font-size:15px;color:inherit;white-space:nowrap}
 .stg small{display:block;font-size:14px;margin:2px 0 8px}
 .lvl{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:2px 8px}
@@ -185,7 +191,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
  .wins,.grid6,.cards3,.docs,.talks,.feat{grid-template-columns:minmax(0,1fr)}.feat .fcard:first-child{grid-column:auto}
  .row{grid-template-columns:minmax(0,1fr);gap:2px}
  .detail .pic{min-height:220px}
- .crest{width:76px;height:76px;font-size:18px}.tl::before{top:42px}
+ .crest{width:76px;height:76px;font-size:18px}.tl{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px;overflow:visible}.tl::before{display:none}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.crest{transition:none}}
 </style>
@@ -366,19 +372,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 {
 /* ── CONTENIDO EDITABLE ── cada texto: {es:'…', en:'…'} */
 const STAGES=[
- {m:'IZ',club:'C.D. Izarra',years:'2014–15',lvl:{es:'Tercera → 2ªB',en:'Tier 4 → Tier 3'},pill:{es:'Primer entrenador',en:'Head coach'},
+ {m:'IZ',e:'izarra',club:'C.D. Izarra',years:'2014–15',lvl:{es:'Tercera → 2ªB',en:'Tier 4 → Tier 3'},pill:{es:'Primer entrenador',en:'Head coach'},
   role:{es:'Entrenador · Tercera División, Grupo 15',en:'Head coach · Spanish Tercera División, Group 15'},img:'campo.jpg',
   pts:{es:['Ascenso de categoría a Segunda División B.','Dirección del equipo como primer entrenador.'],en:['Promotion to Segunda División B.','Led the team as head coach.']},chips:[]},
- {m:'BAN',club:'FC Banants',years:'2016–18',lvl:{es:'1ª división',en:'Top flight'},pill:{es:'Armenia · Premier League',en:'Armenia · Premier League'},
+ {m:'BAN',e:'banants',club:'FC Banants',years:'2016–18',lvl:{es:'1ª división',en:'Top flight'},pill:{es:'Armenia · Premier League',en:'Armenia · Premier League'},
   role:{es:'Preparador físico del primer equipo · Entrenador del filial · Sport scientist de la academia',en:'First-team fitness coach · Reserve team head coach · Academy sport scientist'},img:'campo.jpg',
   pts:{es:['Preparador físico del primer equipo en la Premier League armenia.','Entrenador de FC Banants II (Primera División de Armenia).','Sport scientist de la academia.','Previa de la UEFA Europa League 2016.'],en:['First-team fitness coach in the Armenian Premier League.','Head coach of FC Banants II (Armenian First League).','Academy sport scientist.','UEFA Europa League qualifying 2016.']},chips:['UEFA Europa League']},
- {m:'USG',club:'Union Saint-Gilloise',years:'2019–20',lvl:{es:'2ª división',en:'2nd tier'},pill:{es:'Bélgica · Proximus League',en:'Belgium · Proximus League'},
+ {m:'USG',e:'usg',club:'Union Saint-Gilloise',years:'2019–20',lvl:{es:'2ª división',en:'2nd tier'},pill:{es:'Bélgica · Proximus League',en:'Belgium · Proximus League'},
   role:{es:'Preparador físico y analista de rivales · Entrenador: Thomas Christiansen',en:'Fitness coach and opposition analyst · Head coach: Thomas Christiansen'},img:'campo.jpg',
   pts:{es:['Preparación física del primer equipo.','Análisis de rivales para el cuerpo técnico.'],en:['First-team physical preparation.','Opposition analysis for the coaching staff.']},chips:[]},
- {m:'PAN',club:{es:'Selección de Panamá',en:'Panama national team'},years:'2020–26',lvl:{es:'Selección',en:'National team'},pill:{es:'Selección absoluta · CONCACAF',en:'Senior national team · CONCACAF'},
+ {m:'PAN',e:'panama',club:{es:'Selección de Panamá',en:'Panama national team'},years:'2020–26',lvl:{es:'Selección',en:'National team'},pill:{es:'Selección absoluta · CONCACAF',en:'Senior national team · CONCACAF'},
   role:{es:'Preparador físico y sport scientist de la Federación · Entrenador: Thomas Christiansen',en:'Fitness coach and federation sport scientist · Head coach: Thomas Christiansen'},img:'retrato.jpg',
   pts:{es:['Subcampeón de la Copa Oro CONCACAF 2023.','Tres Final Four de la Liga de Naciones CONCACAF (subcampeón 2024–25).','Clasificación para el Mundial 2026.'],en:['CONCACAF Gold Cup 2023 runners-up.','Three CONCACAF Nations League Final Fours (runners-up 2024–25).','Qualified for the 2026 World Cup.']},chips:['GPS','Copa Oro / Gold Cup','Nations League','FIFA World Cup 2026']},
- {m:'ESP',club:{es:'Selección Española',en:'Spain national teams'},years:'2026',lvl:{es:'Selección',en:'National team'},pill:{es:'Sub-20 · Sub-19',en:'U20 · U19'},
+ {m:'ESP',e:'rfef',club:{es:'Selección Española',en:'Spain national teams'},years:'2026',lvl:{es:'Selección',en:'National team'},pill:{es:'Sub-20 · Sub-19',en:'U20 · U19'},
   role:{es:'Preparador físico · Septiembre–octubre 2026',en:'Fitness coach · September–October 2026'},img:'campo.jpg',
   pts:{es:['Control de carga y GPS.','Protocolos de gimnasio.'],en:['Load monitoring and GPS.','Gym protocols.']},chips:['RFEF','Sub-20 / U20','Sub-19 / U19']}
 ];
@@ -453,11 +459,11 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const $=id=>document.getElementById(id);
 const ext=u=>u?`<a href="${esc(u)}" target="_blank" rel="noopener">${L==='es'?'Ver más →':'Read more →'}</a>`:'';
 const renderDetail=()=>{const s=STAGES[sel];
- $('detail').innerHTML=`<div class="pic"><img src="img/${s.img}" alt="${esc(tx(s.club))}"></div><div class="txt"><span class="pill">${esc(tx(s.pill))}</span><h3>${esc(tx(s.club))}</h3><p class="role">${esc(tx(s.role))} · ${esc(s.years)}</p><ul>${tx(s.pts).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${s.chips.length?`<div class="chips">${s.chips.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>`:''}</div>`;
+ $('detail').innerHTML=`<div class="pic"><img src="img/${s.img}" alt="${esc(tx(s.club))}"></div><div class="txt">${s.e?`<div class="dcrest"><img src="img/escudos/${s.e}.png" alt="${esc(tx(s.club))}"></div>`:''}<span class="pill">${esc(tx(s.pill))}</span><h3>${esc(tx(s.club))}</h3><p class="role">${esc(tx(s.role))} · ${esc(s.years)}</p><ul>${tx(s.pts).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${s.chips.length?`<div class="chips">${s.chips.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>`:''}</div>`;
  document.querySelectorAll('.stg').forEach((b,i)=>b.setAttribute('aria-selected',i===sel));};
 const render=()=>{
  const tl=$('tl');tl.style.setProperty('--n',STAGES.length);
- tl.innerHTML=STAGES.map((s,i)=>`<button class="stg" role="tab" type="button" data-i="${i}" aria-selected="${i===sel}"><div class="crest">${esc(s.m)}</div><b>${esc(s.years)}</b><small>${esc(tx(s.club))}</small><span class="lvl">${esc(tx(s.lvl))}</span></button>`).join('');
+ tl.innerHTML=STAGES.map((s,i)=>`<button class="stg" role="tab" type="button" data-i="${i}" aria-selected="${i===sel}"><div class="crest${s.e?' has':''}">${s.e?`<img src="img/escudos/${s.e}.png" alt="">`:esc(s.m)}</div><b>${esc(s.years)}</b><small>${esc(tx(s.club))}</small><span class="lvl">${esc(tx(s.lvl))}</span></button>`).join('');
  renderDetail();
  $('earlier').innerHTML=EARLIER.map(e=>`<div class="row"><span>${esc(e.y)}</span><p>${esc(tx(e.t))}<small>${esc(tx(e.s))}</small></p></div>`).join('');
  $('wins').innerHTML=WINS.map(w=>`<div class="win"><div class="y">${esc(w.y)}</div><h3>${esc(tx(w.t))}</h3><p>${esc(tx(w.d))}</p></div>`).join('');
