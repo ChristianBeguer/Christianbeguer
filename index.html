@@ -141,6 +141,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .doc:hover{border-color:var(--acc)}
 .doc small{color:var(--mut);display:block;font-size:13px}
 .doc i{font-style:normal;color:var(--acc);font-weight:700}
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.fcard{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;text-decoration:none;min-height:190px;transition:border-color .2s,transform .2s}
+.fcard:hover{border-color:var(--acc);transform:translateY(-2px)}
+.fcard .ic{width:44px;height:44px;border-radius:12px;background:var(--card2);display:grid;place-items:center;color:var(--acc)}
+.fcard .ic svg{width:22px;height:22px}
+.fcard .k{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.fcard h3{font-size:19px}
+.fcard p{margin:0;color:var(--mut);font-size:15px;flex:1}
+.fcard .go{font-weight:600;font-size:14px;color:var(--ink)}
+.feat .fcard:first-child{grid-column:span 2}
 /* docencia */
 .talks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
 .talk{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
@@ -167,12 +177,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
  .links.open{display:flex}.links a{padding:12px 0}
  .burger{display:block}.lang{margin-left:0;padding-left:12px}
  .hero,.about,.contact,.split,.wide,.detail{grid-template-columns:minmax(0,1fr)}
- .wins,.grid6,.cards3{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .wins,.grid6,.cards3,.feat{grid-template-columns:repeat(2,minmax(0,1fr))}
  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat:nth-child(3){border-left:0;padding-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}
 }
 @media(max-width:600px){
  .brand .nm{display:none}
- .wins,.grid6,.cards3,.docs,.talks{grid-template-columns:minmax(0,1fr)}
+ .wins,.grid6,.cards3,.docs,.talks,.feat{grid-template-columns:minmax(0,1fr)}.feat .fcard:first-child{grid-column:auto}
  .row{grid-template-columns:minmax(0,1fr);gap:2px}
  .detail .pic{min-height:220px}
  .crest{width:76px;height:76px;font-size:18px}.tl::before{top:42px}
@@ -214,6 +224,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
    </div>
    <div class="cta">
     <a class="btn pri" href="#trayectoria" data-en="See my career">Ver trayectoria</a>
+    <a class="btn" href="#trabajo" data-en="See my work">Ver mi trabajo</a>
     <a class="btn" href="#contacto" data-en="Get in touch">Contactar</a>
    </div>
   </div>
@@ -288,7 +299,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <p class="eyebrow" data-en="My methodology">Mi metodología</p>
   <h2 data-en="Football first: the physical work lives inside the game.">Primero el fútbol: lo físico vive dentro del juego.</h2>
   <div class="grid6" id="principles"></div>
-  <p class="eyebrow" style="margin-top:64px" data-en="Documents and studies">Documentos y estudios</p>
+  <div id="trabajo" style="margin-top:72px">
+   <p class="eyebrow" data-en="My work">Mi trabajo</p>
+   <h2 style="font-size:clamp(28px,3.6vw,40px)" data-en="See how I work">Mira cómo trabajo</h2>
+   <div class="feat" id="featured"></div>
+  </div>
+  <p class="eyebrow" style="margin-top:56px" data-en="Studies">Estudios</p>
   <div class="docs" id="docs"></div>
  </div>
 </section>
@@ -409,15 +425,17 @@ const PRINCIPLES=[
  {t:{es:'Prevención y readaptación',en:'Prevention and return to play'},d:{es:'Reducir el riesgo de lesión y guiar la vuelta del jugador a la competición.',en:'Reducing injury risk and guiding the player back to competition.'}},
  {t:{es:'Desarrollo individual',en:'Individual development'},d:{es:'Un plan de desarrollo para cada jugador según su posición, sus necesidades y su historia.',en:'A development plan for each player based on position, needs and history.'}}
 ];
+const FEATURED=[
+ {k:'doc',t:{es:'Metodología de entrenamiento',en:'Training methodology'},d:{es:'Mi forma de planificar y estructurar el entrenamiento, del modelo de juego a la sesión.',en:'How I plan and structure training, from the game model to each session.'},u:'https://drive.google.com/file/d/1Dpk_Hi6qfCwqQCMutJIcXk5bar3ohhgI/view?usp=sharing'},
+ {k:'video',t:{es:'Entrenamiento coadyuvante y optimizador',en:'Supporting and optimising training'},d:{es:'Vídeo explicativo.',en:'Explainer video.'},u:'https://www.youtube.com/watch?v=M-j4EvxpPwU&t=290s'},
+ {k:'video',t:{es:'Metodología de las sesiones',en:'Session methodology'},d:{es:'Vídeo sobre cómo diseño y organizo las sesiones.',en:'Video on how I design and organise sessions.'},u:'https://www.youtube.com/watch?v=otDW1pq43-M'},
+ {k:'doc',t:{es:'Plan de Desarrollo Individual del Jugador',en:'Individual Player Development Plan'},d:{es:'Proyecto para planificar el desarrollo de cada jugador.',en:'A project to plan each player\'s development.'},u:'https://drive.google.com/file/d/1ghJMIR9Qr7kQEtohwoRjBs5C0P6-yTcx/view?usp=sharing'},
+ {k:'doc',t:{es:'Ejemplo de informe de microciclo',en:'Sample microcycle report'},d:{es:'Así reporto la semana de trabajo al cuerpo técnico.',en:'How I report the training week to the coaching staff.'},u:'https://drive.google.com/file/d/1HLEsaFgeImRxZ4N6b45tfsXAd5TvElCd/view?usp=drive_link'}
+];
 const DOCS=[
- {t:{es:'Metodología de entrenamiento',en:'Training methodology'},k:'PDF',u:'https://drive.google.com/file/d/1Dpk_Hi6qfCwqQCMutJIcXk5bar3ohhgI/view?usp=sharing'},
- {t:{es:'Plan de Desarrollo Individual del Jugador',en:'Individual Player Development Plan'},k:'PDF',u:'https://drive.google.com/file/d/1ghJMIR9Qr7kQEtohwoRjBs5C0P6-yTcx/view?usp=sharing'},
- {t:{es:'Ejemplo de informe de microciclo',en:'Sample microcycle report'},k:'PDF',u:'https://drive.google.com/file/d/1HLEsaFgeImRxZ4N6b45tfsXAd5TvElCd/view?usp=drive_link'},
  {t:{es:'Estudio: Octagonal – Mundial 2022',en:'Study: CONCACAF Octagonal – 2022 World Cup'},k:'PDF',u:'https://drive.google.com/file/d/1pEDC5pe4cnGmBr5iR-W1rdGSNW-A5BxI/view?usp=sharing'},
  {t:{es:'Estudio: El camino al Mundial 2026',en:'Study: The road to the 2026 World Cup'},k:'PDF',u:'https://drive.google.com/file/d/11OIFOOsv1JKCodCRMIJ-kMYESv95Cj0m/view?usp=drive_link'},
- {t:{es:'Estudio: Lesiones en una selección nacional',en:'Study: Injuries in a national team'},k:'PDF',u:'https://drive.google.com/file/d/12wIXuql9BQVVMO-UWEnFq2qW82bCqxBX/view?usp=sharing'},
- {t:{es:'Vídeo: entrenamiento coadyuvante y optimizador',en:'Video: supporting and optimising training'},k:'YouTube',u:'https://www.youtube.com/watch?v=M-j4EvxpPwU&t=290s'},
- {t:{es:'Vídeo: metodología de las sesiones',en:'Video: session methodology'},k:'YouTube',u:'https://www.youtube.com/watch?v=otDW1pq43-M'}
+ {t:{es:'Estudio: Lesiones en una selección nacional',en:'Study: Injuries in a national team'},k:'PDF',u:'https://drive.google.com/file/d/12wIXuql9BQVVMO-UWEnFq2qW82bCqxBX/view?usp=sharing'}
 ];
 const TALKS=[
  {y:'2025',t:{es:'Jornadas de actualización y reciclaje',en:'Coach update sessions'},d:{es:'Federación Aragonesa de Fútbol · febrero de 2025.',en:'Aragon Football Federation · February 2025.'},u:'https://x.com/futbolaragon/status/1889263141277630934'},
@@ -447,6 +465,8 @@ const render=()=>{
  $('certs').innerHTML=CERTS.map(c=>`<div class="row"><span>${esc(c.y)}</span><p>${esc(tx(c.t))}</p></div>`).join('');
  $('tools').innerHTML=TOOLS.map(t=>`<div class="tool"><h4>${esc(tx(t.t))}</h4><p>${esc(tx(t.d))}</p><div class="chips" style="margin:0">${t.c.map(c=>`<span class="chip">${esc(tx(c))}</span>`).join('')}</div></div>`).join('');
  $('principles').innerHTML=PRINCIPLES.map(p=>`<div class="prin"><h3>${esc(tx(p.t))}</h3><p>${esc(tx(p.d))}</p></div>`).join('');
+const ICON={doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',video:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>'};
+ $('featured').innerHTML=FEATURED.map(f=>`<a class="fcard" href="${esc(f.u)}" target="_blank" rel="noopener"><span class="ic">${ICON[f.k]}</span><span class="k">${f.k==='video'?(L==='es'?'Vídeo · YouTube':'Video · YouTube'):(L==='es'?'Documento · PDF':'Document · PDF')}</span><h3>${esc(tx(f.t))}</h3><p>${esc(tx(f.d))}</p><span class="go">${f.k==='video'?(L==='es'?'Ver vídeo →':'Watch video →'):(L==='es'?'Abrir documento →':'Open document →')}</span></a>`).join('');
  $('docs').innerHTML=DOCS.map(d=>`<a class="doc" href="${esc(d.u)}" target="_blank" rel="noopener"><span>${esc(tx(d.t))}<small>${esc(d.k)}</small></span><i>→</i></a>`).join('');
  $('talks').innerHTML=TALKS.map(t=>`<div class="talk">${t.y?`<div class="y">${esc(t.y)}</div>`:''}<h3>${esc(tx(t.t))}</h3><p>${esc(tx(t.d))}</p>${ext(t.u)}</div>`).join('');
 };
